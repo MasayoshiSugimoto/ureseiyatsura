@@ -117,7 +117,7 @@ function drawBuildings() {
 
 	container.innerHTML = buildings.map(building => `
 		<h1>${building.name}</h1>
-		<table>
+		<table class="table table-hover">
 			<tbody>${
 				building.layout.map((row, y) => `
 					<tr>${
@@ -143,10 +143,9 @@ function roomToDisplay(roomNumber) {
 
 function pourcentageToRisk(pourcentage) {
 	return [
-		{limit: 25,  color: "status_ok"},
-		{limit: 50,  color: "status_low_risk"},
-		{limit: 75,  color: "status_warning"},
-		{limit: 100, color: "status_alert"},
+		{limit: 30,  color: "table-success"},
+		{limit: 60,  color: "table-warning"},
+		{limit: 100, color: "table-danger"},
 	]
 		.find(level => pourcentage * 100 <= level.limit)
 		.color
