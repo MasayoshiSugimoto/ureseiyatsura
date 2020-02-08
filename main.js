@@ -84,13 +84,17 @@ function addComplaint() {
 	document.getElementById("room_input").value = ""
 
 	complaints.push(roomNumber)
-	refresh()
+	refreshScreen()
 }
 
-function refresh() {
+function refreshScreen() {
+	refresh(SOUTH_COURT)
+}
+
+function refresh(building) {
 	const container = document.getElementById("appartment_map")
 
-	const noisyAppartments = getNoisyAppartments(southCourt, complaints)
+	const noisyAppartments = getNoisyAppartments(building, complaints)
 
 	container.innerHTML = `
 		<ul>
@@ -103,7 +107,7 @@ function refresh() {
 		<table>
 			<tbody>
 			${
-				southCourt.map((row, y) => `
+				building.map((row, y) => `
 					<tr>
 						${
 						row
