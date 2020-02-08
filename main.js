@@ -123,11 +123,11 @@ function drawBuildings() {
 					<tr>${
 						row
 							.map((roomNumber, x) => {
-								const color = roomNumber >= 0
-									? pourcentageToColor(building.noisyAppartments[y][x])
+								const riskClass = roomNumber >= 0
+									? pourcentageToRisk(building.noisyAppartments[y][x])
 									: ""
 								const room = roomToDisplay(roomNumber)
-								return `<td style="background-color:${color}">${room}</td>`
+								return `<td class="${riskClass}">${room}</td>`
 							}).join('')
 					} </tr>
 				`).join('')
@@ -141,49 +141,15 @@ function roomToDisplay(roomNumber) {
 	return roomNumber < 0 ? "" : roomNumber
 }
 
-function pourcentageToColor(pourcentage) {
+function pourcentageToRisk(pourcentage) {
 	return [
-		{limit: 25,  color: "green"},
-		{limit: 50,  color: "yellow"},
-		{limit: 75,  color: "orange"},
-		{limit: 100, color: "red"},
+		{limit: 25,  color: "status_ok"},
+		{limit: 50,  color: "status_low_risk"},
+		{limit: 75,  color: "status_warning"},
+		{limit: 100, color: "status_alert"},
 	]
 		.find(level => pourcentage * 100 <= level.limit)
 		.color
-}
-
-function lerpColor(pourcentage) {
-
-	const green = {r:0, g:255, b:0}	
-	const red = {r:255, g:0, b:0}
-
-	const minus = (c1, c2) => {
-		return {
-			r: c1.r - c2.r,
-			g: c1.g - c2.g,
-			b: c1.b - c2.b
-		}
-	}
-
-	const scale = (color, factor) => {
-		return {
-			r: color.r * factor,
-			g: color.g * factor,
-			b: color.b * factor
-		}
-	}
-
-	const add = (c1, c2) => {
-		return {
-			r: c1.r + c2.r,
-			g: c1.g + c2.g,
-			b: c1.b + c2.b
-		}
-	}
-
-	const color = add(green, scale(minus(red, green), pourcentage))
-
-	return `rgb(${color.r}, ${color.g}, ${color.b})`
 }
 
 function onEnter(event) {

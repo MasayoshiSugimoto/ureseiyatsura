@@ -3,6 +3,23 @@
 <head>
 	<script src="main.js"></script>
 	<script src="data.js"></script>
+	<style>
+		.status_ok {
+			background-color: rgb(102, 255, 102);
+		}
+
+		.status_low_risk {
+			background-color: rgb(255, 255, 0);
+		}
+
+		.status_warning {
+			background-color: rgb(255, 102, 0);
+		}
+
+		.status_alert {
+			background-color: rgb(255, 0, 0);
+		}
+	</style>
 </head>
 
 <body onload="refreshScreen()">
@@ -14,6 +31,13 @@
 
 	<div id="complaints_list"></div>
 	<div id="appartment_map"></div>
+
+	<div id="debug">
+		<div class="status_ok">GREEN</div>
+		<div class="status_low_risk">YELLOW</div>
+		<div class="status_warning">ORANGE</div>
+		<div class="status_alert">RED</div>
+	</div>
 </body>
 
 </html>
