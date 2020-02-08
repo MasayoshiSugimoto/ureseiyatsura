@@ -36,7 +36,7 @@ const BRIGHT_COURT = [
 	[114,   115,   116,   117,   118,   119,   120,   121,   122,  123,  124,  -1],
 ]
 
-const SOUTH_COURT = [
+const CENTER_COURT = [
 	[730, 729, 728, 727, 726],
 	[631, 630, 629, 628, 627],
 	[531, 530, 529, 528, 527],
@@ -49,6 +49,6 @@ const SOUTH_COURT = [
 const BUILDINGS = [
 	{name: "サウスコート", layout: SOUTH_COURT},
 	{name: "フライトどーと", layout: BRIGHT_COURT},
-	{name: "センターコート", layout: SOUTH_COURT},
+	{name: "センターコート", layout: CENTER_COURT},
 ]
 
