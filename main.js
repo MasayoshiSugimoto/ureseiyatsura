@@ -88,12 +88,7 @@ function addComplaint() {
 }
 
 function refreshScreen() {
-
-	const buildings = [
-		{name: "サウスコート", layout: SOUTH_COURT},
-	]
-
-	buildings.forEach(drawBuilding)
+	BUILDINGS.forEach(drawBuilding)
 }
 
 function drawBuilding(building) {
