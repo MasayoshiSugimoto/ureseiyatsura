@@ -70,8 +70,12 @@ function buildingRoom(building, {x, y}) {
 }
 
 function addComplaint(roomNumber) {
-	console.log(`Adding ${roomNumber} to the complaints`)
-	complaints.push(roomNumber)
+	if (complaints.includes(roomNumber)) {
+		console.log(`Failed to add ${roomNumber} because it is already registered`)
+	} else {
+		console.log(`Adding ${roomNumber} to the complaints`)
+		complaints.push(roomNumber)
+	}
 	refreshScreen()
 }
 
