@@ -127,7 +127,7 @@ function drawBuildings() {
 		}))
 
 	container.innerHTML = buildings.map(building => `
-		<h1>${building.name}</h1>
+		<h2>${building.name}</h2>
 		<table class="table table-hover">
 			<tbody>${
 				building.layout.map((row, y) => `
