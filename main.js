@@ -12,30 +12,40 @@ const southCourt = [
 let complaints = []
 
 function getNoisyAppartments(building, complaints) {
+
+	const neighboorMap = buildNeighboorsMap(building)
+
+	const neighboorRelativeCoordinates = [
+		{dx: -1, dy: 0},
+		{dx: 1, dy: 0},
+		{dx: 0, dy: -1},
+		{dx: 0, dy: 1},
+	]
+
 	return building.map((row, floor) =>
 		row.map((roomNumber, roomIndex) => {
 			if (roomNumber < 0) return 0
 
-			const neighboors = buildingNeighboors(building, {x: roomIndex, y: floor})
+			if (neighboorMap[floor][roomIndex] == 0) return 0
 
-			if (neighboors.length == 0) return 0
+			const totalComplaints = neighboorRelativeCoordinates
+					.map(({dx, dy}) => ({x: roomIndex+dx, y: floor+dy}))
+					.map(roomCoordinates => buildingRoom(building, roomCoordinates))
+					.filter(room => room !== undefined)
+					.filter(room => complaints.includes(room))
+					.length
 
-			const totalCompaints = neighboors
-					.map(room => complaints.includes(room))
-					.map(complains => complains ? 1 : 0)
-					.reduce((totalComplaints, complain) => totalComplaints + complain)
-
-			return totalCompaints / neighboors.length
+			return totalComplaints / neighboorMap[floor][roomIndex]
 		})
 	)
 }
 
 function buildingWidth(building) {
-	return building.length
+	return building[0].length
 }
 
 function buildingHeight(building) {
-	return building[0].length
+	return building.length
 }
 
 function buildingNeighboors(building, {x, y}) {
@@ -51,6 +61,24 @@ function buildingNeighboors(building, {x, y}) {
 	add({dx: 0, dy: 1})
 
 	return neighboors
+}
+
+function buildNeighboorsMap(building) {
+
+	const neighboorsInfo = [
+		{dx: -1, dy: 0},
+		{dx: 1, dy: 0},
+		{dx: 0, dy: -1},
+		{dx: 0, dy: 1},
+	]
+
+	return building.map((floor, y) =>
+		floor.map((roomIndex, x) => 
+			neighboorsInfo
+				.filter(neighboor => buildingRoom(building, {x: x+neighboor.dx, y: y+neighboor.dy}) !== undefined)
+				.length		
+		)
+	)
 }
 
 function buildingRoom(building, {x, y}) {
