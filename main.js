@@ -1,3 +1,5 @@
+"strict"
+
 const ENTER_KEY = 13
 
 const southCourt = [
@@ -125,6 +127,17 @@ function roomToDisplay(roomNumber) {
 }
 
 function pourcentageToColor(pourcentage) {
+	return [
+		{limit: 25,  color: "green"},
+		{limit: 50,  color: "yellow"},
+		{limit: 75,  color: "orange"},
+		{limit: 100, color: "red"},
+	]
+		.find(level => pourcentage * 100 <= level.limit)
+		.color
+}
+
+function lerpColor(pourcentage) {
 
 	const green = {r:0, g:255, b:0}	
 	const red = {r:255, g:0, b:0}
