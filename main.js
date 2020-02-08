@@ -89,7 +89,7 @@ function addComplaint() {
 
 function refreshScreen() {
 	drawComplaintsList()
-	BUILDINGS.forEach(drawBuilding)
+	drawBuildings()
 }
 
 function drawComplaintsList() {
@@ -105,12 +105,17 @@ function drawComplaintsList() {
 		</ul>`
 }
 
-function drawBuilding(building) {
+function drawBuildings() {
 	const container = document.getElementById("appartment_map")
 
-	const noisyAppartments = getNoisyAppartments(building.layout, complaints)
+	const buildings = BUILDINGS
+		.map(building => ({
+			name: building.name,
+			layout: building.layout,
+			noisyAppartments: getNoisyAppartments(building.layout, complaints)
+		}))
 
-	container.innerHTML = `
+	container.innerHTML = buildings.map(building => `
 		<h1>${building.name}</h1>
 		<table>
 			<tbody>
@@ -120,7 +125,7 @@ function drawBuilding(building) {
 						${
 						row
 							.map((roomNumber, x) => `
-								<td style="background-color:${pourcentageToColor(noisyAppartments[y][x])}">
+								<td style="background-color:${pourcentageToColor(building.noisyAppartments[y][x])}">
 									${roomToDisplay(roomNumber)}
 								</td>
 							`)
@@ -131,7 +136,8 @@ function drawBuilding(building) {
 			}
 			</tbody>
 		</table>
-	`
+	`)
+		.join("")
 }
 
 function roomToDisplay(roomNumber) {
