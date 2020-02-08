@@ -1,0 +1,18 @@
+<html>
+
+<head>
+	<script src="main.js"></script>
+</head>
+
+<body onload="refresh()">
+	<section>
+		<label for="room_input">部屋番号</label>
+		<input id="room_input" type="text" placeholder="例：210" autofocus onkeyDown="onEnter(event)"></input>
+ 		<button type="button" onclick="addComplaint()">追加</button>
+	</section>
+
+	<div id="appartment_map">
+	</div>
+</body>
+
+</html>
