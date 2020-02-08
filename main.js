@@ -133,7 +133,9 @@ function drawBuildings() {
 								const riskClass = roomNumber >= 0
 									? pourcentageToRisk(building.noisyAppartments[y][x])
 									: ""
-								const room = roomToDisplay(roomNumber)
+								const room = complaints.includes(roomNumber)
+									? `<strong>${roomToDisplay(roomNumber)}</strong>`
+									: roomToDisplay(roomNumber)
 								return `<td class="${riskClass}" onclick="onClickAppartment(${roomNumber})">${room}</td>`
 							}).join('')
 					} </tr>
