@@ -88,13 +88,12 @@ function addComplaint() {
 }
 
 function refreshScreen() {
+	drawComplaintsList()
 	BUILDINGS.forEach(drawBuilding)
 }
 
-function drawBuilding(building) {
-	const container = document.getElementById("appartment_map")
-
-	const noisyAppartments = getNoisyAppartments(building.layout, complaints)
+function drawComplaintsList() {
+	const container = document.getElementById("complaints_list")
 
 	container.innerHTML = `
 		<ul>
@@ -103,7 +102,15 @@ function drawBuilding(building) {
 						.map(room => `<li>${room}</li>`)
 						.join("")
 			}
-		</ul>
+		</ul>`
+}
+
+function drawBuilding(building) {
+	const container = document.getElementById("appartment_map")
+
+	const noisyAppartments = getNoisyAppartments(building.layout, complaints)
+
+	container.innerHTML = `
 		<h1>${building.name}</h1>
 		<table>
 			<tbody>
