@@ -70,21 +70,23 @@ function buildingRoom(building, {x, y}) {
 	return building[y][x]
 }
 
-function addComplaint() {
-	console.log("Add complaint()")
+function addComplaint(roomNumber) {
+	console.log(`Adding ${roomNumber} to the complaints`)
+	complaints.push(roomNumber)
+	refreshScreen()
+}
+
+function addComplaintFromInput() {
+	console.log("Add complaintFromInput()")
 
 	const roomNumber = parseInt(document.getElementById("room_input").value)
 	if (isNaN(roomNumber)) {
 		console.log("roomNumber is not a number")
 		return
 	}
-
-	console.log(`Adding ${roomNumber} to the complaints`)
-
 	document.getElementById("room_input").value = ""
 
-	complaints.push(roomNumber)
-	refreshScreen()
+	addComplaint(roomNumber)
 }
 
 function refreshScreen() {
@@ -127,7 +129,7 @@ function drawBuildings() {
 									? pourcentageToRisk(building.noisyAppartments[y][x])
 									: ""
 								const room = roomToDisplay(roomNumber)
-								return `<td class="${riskClass}">${room}</td>`
+								return `<td class="${riskClass}" onclick="addComplaint(${roomNumber})">${room}</td>`
 							}).join('')
 					} </tr>
 				`).join('')
@@ -156,5 +158,5 @@ function onEnter(event) {
 
 	console.log("Enter pressed inside")
 
-	addComplaint()
+	addComplaintFromInput()
 }
