@@ -9,8 +9,7 @@ const southCourt = [
 	[101, 102, 103, 104]
 ]
 
-const complaints = [
-]
+let complaints = []
 
 function getNoisyAppartments(building, complaints) {
 	return building.map((row, floor) =>
@@ -76,6 +75,12 @@ function addComplaint(roomNumber) {
 	refreshScreen()
 }
 
+function removeComplain(roomNumber) {
+	console.log(`Removing ${roomNumber} from the complaints`)
+	complaints = complaints.filter(x => x !== roomNumber)
+	refreshScreen()
+}
+
 function addComplaintFromInput() {
 	console.log("Add complaintFromInput()")
 
@@ -129,7 +134,7 @@ function drawBuildings() {
 									? pourcentageToRisk(building.noisyAppartments[y][x])
 									: ""
 								const room = roomToDisplay(roomNumber)
-								return `<td class="${riskClass}" onclick="addComplaint(${roomNumber})">${room}</td>`
+								return `<td class="${riskClass}" onclick="onClickAppartment(${roomNumber})">${room}</td>`
 							}).join('')
 					} </tr>
 				`).join('')
@@ -159,4 +164,12 @@ function onEnter(event) {
 	console.log("Enter pressed inside")
 
 	addComplaintFromInput()
+}
+
+function onClickAppartment(roomNumber) {
+	if (complaints.includes(roomNumber)) {
+		removeComplain(roomNumber)
+	} else {
+		addComplaint(roomNumber)
+	}
 }
