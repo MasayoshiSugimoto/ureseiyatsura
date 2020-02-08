@@ -118,23 +118,20 @@ function drawBuildings() {
 	container.innerHTML = buildings.map(building => `
 		<h1>${building.name}</h1>
 		<table>
-			<tbody>
-			${
+			<tbody>${
 				building.layout.map((row, y) => `
-					<tr>
-						${
+					<tr>${
 						row
-							.map((roomNumber, x) => `
-								<td style="background-color:${pourcentageToColor(building.noisyAppartments[y][x])}">
-									${roomToDisplay(roomNumber)}
-								</td>
-							`)
-							.join('')
-						}
-					</tr>
+							.map((roomNumber, x) => {
+								const color = roomNumber >= 0
+									? pourcentageToColor(building.noisyAppartments[y][x])
+									: ""
+								const room = roomToDisplay(roomNumber)
+								return `<td style="background-color:${color}">${room}</td>`
+							}).join('')
+					} </tr>
 				`).join('')
-			}
-			</tbody>
+			}</tbody>
 		</table>
 	`)
 		.join("")
